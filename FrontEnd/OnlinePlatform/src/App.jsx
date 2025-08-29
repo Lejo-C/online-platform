@@ -6,7 +6,7 @@ import AdminDashboard from './components/AdminDashboard';
 import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import Examviewer from './components/Examviewer';
-import CreatExam from './components/CreatExam';
+import CreateExam from './components/CreateExam'; 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/exam-viewer" element={<Examviewer />} />
-      <Route path="/create-exam" element={<CreatExam />} />
+      <Route path="/create-exam" element={<CreateExam />} />
     </Routes>
   );
 }

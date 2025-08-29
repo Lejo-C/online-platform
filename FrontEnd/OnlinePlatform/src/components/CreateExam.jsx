@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CreatExam = () => {
+const CreateExam = () => {
   const [name, setName] = useState('');
   const [type, setType] = useState('mcq');
   const [difficulty, setDifficulty] = useState('easy');
@@ -150,4 +150,4 @@ const CreatExam = () => {
   );
 };
 
-export default CreatExam;
+export default CreateExam;
