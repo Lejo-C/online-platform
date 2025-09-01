@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser, faTrash, faUserGraduate, faClipboardList, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser, faTrash, faUserGraduate, faClipboardList, faCheckCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const username = localStorage.getItem('username') || 'Admin';
 
@@ -80,13 +80,23 @@ const AdminDashboard = () => {
             <FontAwesomeIcon icon={faClipboardList} />
             <span>{showExams ? 'Hide Exams' : 'View Exams'}</span>
           </div>
+
           <div
-            onClick={() => navigate('/create-exam')}
-            className="flex items-center gap-3 hover:text-indigo-600 cursor-pointer"
-          >
-            <FontAwesomeIcon icon={faPlusCircle} />
-            <span>Create Exam</span>
-          </div>
+          onClick={() => navigate('/create-exam')}
+          className="flex items-center gap-3 hover:text-indigo-600 cursor-pointer"
+        >
+          <FontAwesomeIcon icon={faPlusCircle} />
+          <span>Create Exam</span>
+        </div>
+
+         <div
+  onClick={() => navigate('/admin/approvals')}
+  className="flex items-center gap-3 hover:text-green-600 cursor-pointer"
+>
+  <FontAwesomeIcon icon={faCheckCircle} />
+  <span>Approve Exams</span>
+</div>
+
         </nav>
       </aside>
 

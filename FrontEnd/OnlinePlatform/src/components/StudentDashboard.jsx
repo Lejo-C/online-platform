@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -12,6 +13,14 @@ import {
 const username = localStorage.getItem('username') || 'Student';
 
 const StudentDashboard = () => {
+  
+
+  const navigate = useNavigate();
+const handleLogout = () => {
+  localStorage.removeItem('username'); // or localStorage.clear() if you want to wipe everything
+  navigate('/'); // redirects to login page
+};
+
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-indigo-200 via-purple-300 to-pink-200 font-sans">
       {/* Sidebar */}
@@ -35,7 +44,7 @@ const StudentDashboard = () => {
             <FontAwesomeIcon icon={faQuestionCircle} />
             <span>Doubts & Q&A</span>
           </div>
-          <div className="flex items-center gap-3 text-red-500 hover:text-red-700 cursor-pointer">
+          <div onClick={handleLogout} className="flex items-center gap-3 text-red-500 hover:text-red-700 cursor-pointer">
             <FontAwesomeIcon icon={faSignOutAlt} />
             <span>Logout</span>
           </div>

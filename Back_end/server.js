@@ -5,7 +5,7 @@ const studentRoute = require('./routes/student');
 // ✅ Route Imports
 const signupRoute = require('./routes/signup');
 const examRoute = require('./routes/exam'); // 👈 Make sure this file exists
-
+const path = require('path');
 const app = express();
 
 // ✅ Global Middleware
@@ -15,6 +15,8 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 
+app.use(express.static(path.join(__dirname, 'client/dist')));
+
 // ✅ Route Mounting
 app.use('/signup', signupRoute); 
 app.use('/exams', examRoute);   
@@ -23,6 +25,10 @@ app.use('/users', studentRoute);
 mongoose.connect('mongodb://127.0.0.1:27017/online_platform')
   .then(() => console.log('🟢 MongoDB connected'))
   .catch(err => console.error('🔴 DB error:', err));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html')); // or 'client/build/index.html'
+});
 
 // ✅ Server Start
 app.listen(3000, () => console.log('🚀 Server running on port 3000'));
