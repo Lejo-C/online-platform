@@ -2,18 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 // POST: /create-exam
-router.post('/', (req, res) => {
-  const { name, type } = req.body;
-
-  
-  // You can save to DB here or log for now
-  console.log('Received exam:', { name, type });
-
-  res.status(200).json({
-  message: 'Exam created successfully!',
-  exam: { name, type }
-  });
-
+router.post('/create-exam', async (req, res) => {
+  try {
+    const newExam = new Exam(req.body);
+    await newExam.save();
+    res.status(201).json({ message: 'Exam created', exam: newExam });
+  } catch (err) {
+    console.error('Error creating exam:', err);
+    res.status(500).json({ error: 'Failed to create exam' });
+  }
 });
+
 
 module.exports = router;

@@ -90,7 +90,7 @@ const AdminDashboard = () => {
         </div>
 
          <div
-  onClick={() => navigate('/admin/approvals')}
+  onClick={() => navigate('/approval-requests')}
   className="flex items-center gap-3 hover:text-green-600 cursor-pointer"
 >
   <FontAwesomeIcon icon={faCheckCircle} />

@@ -7,10 +7,10 @@ import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import Examviewer from './components/Examviewer';
 import CreateExam from './components/CreateExam';
-import Attempt from './components/Attempt';
+import ApproveRequests from './components/ApproveRequests';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import AdminApprovalPanel from './components/AdminApprovalPanel';
+import ExamInstructions from './components/ExamInstructions';
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
       <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/exam-viewer" element={<Examviewer />} />
       <Route path="/create-exam" element={<CreateExam />} />
-      <Route path="/attempt/:examId" element={<Attempt />} />
-      <Route path="/admin/approvals" element={<AdminApprovalPanel />} />
+      <Route path="/approval-requests" element={<ApproveRequests />} />
+      <Route path="/instructions/:id" element={<ExamInstructions />} />
     </Routes>
   );
 }
