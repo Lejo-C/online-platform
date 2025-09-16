@@ -1,11 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const studentRoute = require('./routes/student');
-// ✅ Route Imports
-const signupRoute = require('./routes/signup');
-const examRoute = require('./routes/exam'); // 👈 Make sure this file exists
 const path = require('path');
+
+const studentRoute = require('./routes/student');
+const signupRoute = require('./routes/signup');
+const examRoute = require('./routes/examRouter');
+
 const app = express();
 
 // ✅ Global Middleware
@@ -15,19 +16,23 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 
-app.use(express.static(path.join(__dirname, 'client/dist')));
+// ✅ Serve React Frontend (Vite build)
+const frontendPath = path.join(__dirname, '../FrontEnd/OnlinePlatform/dist');
+app.use(express.static(frontendPath));
 
-// ✅ Route Mounting
-app.use('/signup', signupRoute); 
-app.use('/exams', examRoute);   
-app.use('/users', studentRoute); 
+// ✅ Route Mounting — must come BEFORE catch-all
+app.use('/signup', signupRoute);
+app.use('/exams', examRoute);
+app.use('/users', studentRoute);
+
 // ✅ MongoDB Connection
 mongoose.connect('mongodb://127.0.0.1:27017/online_platform')
   .then(() => console.log('🟢 MongoDB connected'))
   .catch(err => console.error('🔴 DB error:', err));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist/index.html')); // or 'client/build/index.html'
+// ✅ Catch-All Route — must come LAST
+app.use((req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // ✅ Server Start

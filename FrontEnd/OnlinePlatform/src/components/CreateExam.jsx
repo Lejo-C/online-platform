@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const CreateExam = () => {
@@ -7,16 +7,36 @@ const CreateExam = () => {
   const [difficulty, setDifficulty] = useState('easy');
   const [topic, setTopic] = useState('');
   const [count, setCount] = useState(10);
+  const [subjects, setSubjects] = useState([]);
+
+  // ✅ Fetch subjects on mount
+  useEffect(() => {
+  axios.get('http://localhost:3000/exams/subjects')
+    .then(res => {
+      if (Array.isArray(res.data)) {
+        setSubjects(res.data);
+      } else {
+        console.error('Invalid subject format:', res.data);
+        setSubjects([]); // fallback to empty array
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching subjects:', err);
+      setSubjects([]); // fallback to empty array
+    });
+}, []);
+
+
 
   const handleCreateExam = () => {
     axios.post('http://localhost:3000/exams/create-exam', {
-  name,
-  type,
-  difficulty,
-  topic,
-  questionCount: count
-})
-.then(() => {
+      name,
+      type,
+      difficulty,
+      topic,
+      questionCount: count
+    })
+    .then(() => {
       alert('✅ Exam created successfully!');
     }).catch(err => {
       console.error('Error creating exam:', err);
@@ -47,13 +67,13 @@ const CreateExam = () => {
         <option value="hard">Hard</option>
       </select>
 
-      <input
-        type="text"
-        placeholder="Topic"
-        value={topic}
-        onChange={e => setTopic(e.target.value)}
-        className="w-full p-2 border rounded mb-4"
-      />
+      {/* ✅ Topic Dropdown */}
+      <select value={topic} onChange={e => setTopic(e.target.value)} className="w-full p-2 border rounded mb-4">
+        <option value="">Select a Subject</option>
+        {subjects.map((subj, index) => (
+          <option key={index} value={subj}>{subj}</option>
+        ))}
+      </select>
 
       <input
         type="number"

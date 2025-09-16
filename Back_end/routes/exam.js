@@ -171,7 +171,7 @@ router.post('/update-approval', async (req, res) => {
   res.status(200).json({ message: `Request ${status}` });
 });
 
-router.post('/create-exam', async (req, res) => {
+router.post('/create-exam-from-bank', async (req, res) => {
   const { name, type, difficulty, topic, questionCount } = req.body;
 
   try {

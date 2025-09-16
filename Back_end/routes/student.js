@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// GET all students
+// ✅ Correct route for /users/students
 router.get('/students', async (req, res) => {
   try {
     const students = await User.find({ role: 'student' });

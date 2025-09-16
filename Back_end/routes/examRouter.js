@@ -1,9 +1,9 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Exam = require('../models/Exam');
 
-// GET all exams
+// ✅ GET all exams
 router.get('/', async (req, res) => {
   try {
     const exams = await Exam.find();
@@ -13,11 +13,15 @@ router.get('/', async (req, res) => {
   }
 });
 
-// DELETE exam by ID with ObjectId validation
-router.delete('/exams/:id', async (req, res) => {
+// ✅ GET available subjects
+router.get('/subjects', (req, res) => {
+  res.json(['Math', 'Science', 'History', 'English', 'Computer']);
+});
+
+// ✅ DELETE exam by ID with ObjectId validation
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
-  // Validate ObjectId format
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'Invalid exam ID format' });
   }
